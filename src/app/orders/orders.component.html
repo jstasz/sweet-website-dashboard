@@ -1,18 +1,25 @@
-<div class="orders">
-  <div *ngIf="loading" ngClass="loading-box">
-    <div class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
-  </div>
-  <div *ngIf="!loading && orders.length === 0">There are no new orders..</div>
-  <div *ngIf="!loading && orders.length > 0">
-    <div *ngFor="let order of orders">
-      <p>{{order.email}}</p>
-      <p>{{order.status}}</p>
-      <p>{{order.date}}</p>
-      <div *ngFor="let el of order.order">
-        {{el.quantity}} x {{el.name}}
-        {{el.price}}
+<div class="page-content">
+  <div class="orders">
+    <div class="filters">
+      <a *ngFor="let filter of filters" class="filters__item" [ngClass]="{'filters__item--active': filter === selectedFilter}" (click)="filterOrders(filter)"> {{ filter }}</a>
+    </div>
+    <div *ngIf="loading" class="loading-box">
+      <div class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+    </div>
+    <div *ngIf="!loading && selectedOrders.length > 0">
+      <div *ngFor="let order of selectedOrders">
+        <div [ngClass]="'card-item ' + 'card-item--' + order.status">
+          <p>{{order.email}}</p>
+          <!-- <p>{{order.status}}</p> -->
+          <p>{{order.date}}</p>
+          <!-- <div *ngFor="let el of order.order">
+            {{el.quantity}} x {{el.name}}
+            {{el.price}}
+          </div> -->
+        </div>
       </div>
     </div>
+    <div *ngIf="!loading && selectedOrders.length === 0" class="no-items">There are no orders </div>
   </div>
 </div>
 

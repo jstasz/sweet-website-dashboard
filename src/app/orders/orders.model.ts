@@ -14,3 +14,5 @@ type OrderItem = {
   price: number;
   quantity: number;
 };
+
+export type OrderFilter = "received" | "in progress" | "completed";

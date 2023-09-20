@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 import { FirebaseService } from "../shared/firebase.service";
-import { Order } from "./orders.model";
+import { Order, OrderFilter } from "./orders.model";
 
 @Component({
   selector: "app-orders",
@@ -8,8 +8,11 @@ import { Order } from "./orders.model";
   styleUrls: ["./orders.component.scss"]
 })
 export class OrdersComponent {
-  orders: Order[] | [] = [];
   loading: boolean = true;
+  filters: OrderFilter[] = ["received", "in progress", "completed"];
+  selectedFilter: OrderFilter = "received";
+  orders: Order[] | [] = [];
+  selectedOrders: Order[] | [] = [];
 
   constructor(private firebaseService: FirebaseService) {}
 
@@ -19,6 +22,12 @@ export class OrdersComponent {
         this.orders = Object.values(data);
       }
       this.loading = false;
+      this.filterOrders("received");
     });
+  }
+
+  filterOrders(filter: OrderFilter) {
+    this.selectedOrders = this.orders.filter(order => order.status === filter);
+    this.selectedFilter = filter;
   }
 }
