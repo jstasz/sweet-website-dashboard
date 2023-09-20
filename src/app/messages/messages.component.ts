@@ -8,14 +8,17 @@ import { FirebaseService } from "../shared/firebase.service";
   styleUrls: ["./messages.component.scss"]
 })
 export class MessagesComponent implements OnInit {
-  messages: Message[] = [];
+  messages: Message[] | [] = [];
+  loading: boolean = true;
 
   constructor(private firebaseService: FirebaseService) {}
 
   ngOnInit() {
     this.firebaseService.getData("messages").subscribe(data => {
-      this.messages = Object.values(data);
-      console.log(this.messages);
+      if (data) {
+        this.messages = Object.values(data);
+      }
+      this.loading = false;
     });
   }
 }

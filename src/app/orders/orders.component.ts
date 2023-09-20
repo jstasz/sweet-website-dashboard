@@ -8,14 +8,17 @@ import { Order } from "./orders.model";
   styleUrls: ["./orders.component.scss"]
 })
 export class OrdersComponent {
-  orders: Order[] = [];
+  orders: Order[] | [] = [];
+  loading: boolean = true;
 
   constructor(private firebaseService: FirebaseService) {}
 
   ngOnInit() {
     this.firebaseService.getData("orders").subscribe(data => {
-      this.orders = Object.values(data);
-      console.log(this.orders);
+      if (data) {
+        this.orders = Object.values(data);
+      }
+      this.loading = false;
     });
   }
 }

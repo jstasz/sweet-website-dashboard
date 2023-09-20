@@ -1,9 +1,15 @@
 <div class="messages">
-  <div *ngFor="let message of messages">
-    <p>{{message.email}}</p>
-    <p>{{message.name}}</p>
-    <p>{{message.message}}</p>
-    <p>{{message.status}}</p>
+  <div *ngIf="loading" ngClass="loading-box">
+    <div class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+  </div>
+  <div *ngIf="!loading && messages.length === 0">There are no new messages..</div>
+  <div *ngIf="!loading && messages.length !== 0">
+    <div *ngFor="let message of messages">
+      <p>{{message.email}}</p>
+      <p>{{message.name}}</p>
+      <p>{{message.message}}</p>
+      <p>{{message.status}}</p>
+    </div>
   </div>
 </div>
 

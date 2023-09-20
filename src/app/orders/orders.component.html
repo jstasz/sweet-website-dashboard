@@ -1,11 +1,17 @@
 <div class="orders">
-  <div *ngFor="let order of orders">
-    <p>{{order.email}}</p>
-    <p>{{order.status}}</p>
-    <p>{{order.date}}</p>
-    <div *ngFor="let el of order.order">
-      {{el.quantity}} x {{el.name}}
-      {{el.price}}
+  <div *ngIf="loading" ngClass="loading-box">
+    <div class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+  </div>
+  <div *ngIf="!loading && orders.length === 0">There are no new orders..</div>
+  <div *ngIf="!loading && orders.length > 0">
+    <div *ngFor="let order of orders">
+      <p>{{order.email}}</p>
+      <p>{{order.status}}</p>
+      <p>{{order.date}}</p>
+      <div *ngFor="let el of order.order">
+        {{el.quantity}} x {{el.name}}
+        {{el.price}}
+      </div>
     </div>
   </div>
 </div>
