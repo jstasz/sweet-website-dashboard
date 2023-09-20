@@ -1,1 +1,16 @@
+.card-item {
+  &__email,
+  &__answer--title {
+    padding: 0.5em 0;
+    font-style: italic;
+    color: rgb(157, 157, 157);
+  }
 
+  &__answer {
+    font-style: italic;
+  }
+
+  &__message {
+    text-align: center;
+  }
+}
