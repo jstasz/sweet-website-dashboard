@@ -1,1 +1,33 @@
-/* You can add global styles to this file, and also import other style files */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: "Open Sans", sans-serif;
+  font-size: 1.4rem;
+  background-color: rgb(215, 215, 215);
+}
+
+p {
+  margin: 0;
+}
+
+app-root {
+  min-height: 100vh;
+}
+
+@media (min-width: 768px) {
+  body {
+    font-size: 1.6rem;
+  }
+}

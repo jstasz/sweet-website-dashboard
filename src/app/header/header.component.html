@@ -1,1 +1,9 @@
-<p>header works!</p>
+<nav class="nav">
+  <div class="nav__img"></div>
+  <div class="nav__content">
+      <div class="nav__content-links">
+          <a *ngFor="let navLink of navLinks" [routerLink]="'/' + navLink" routerLinkActive="nav-link--active" class="nav-link"> {{ navLink }}</a>
+      </div>
+  </div>
+</nav>
+
