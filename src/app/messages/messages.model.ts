@@ -3,4 +3,7 @@ export type Message = {
   message: string;
   name: string;
   status: string;
+  answer: string;
 };
+
+export type MessageFilter = "received" | "completed";

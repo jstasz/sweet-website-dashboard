@@ -1,20 +1,23 @@
 <div class="page-content">
 <div class="messages">
+  <div class="filters">
+    <a *ngFor="let filter of filters" class="filters__item" [ngClass]="{'filters__item--active': filter === selectedFilter}" (click)="filterMessages(filter)"> {{ filter }}</a>
+  </div>
   <div *ngIf="loading" class="loading-box">
     <div class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
   </div>
-  <div *ngIf="!loading && messages.length === 0" class="no-items">There are no new messages..</div>
-  <div *ngIf="!loading && messages.length !== 0">
-    <div *ngFor="let message of messages">
-      <div class="cart-item">
-
+  <div *ngIf="!loading && selectedMessages.length > 0">
+    <div *ngFor="let message of selectedMessages">
+      <div class="card-item" [ngClass]="'card-item ' + 'card-item--' + message.status">
+        <p>{{message.email}}</p>
+        <p>{{message.name}}</p>
+        <p>{{message.message}}</p>
+        <p>{{message.status}}</p>
+        <p *ngIf="selectedFilter === 'completed'">{{message.answer}} answer for Maja</p>
       </div>
-      <p>{{message.email}}</p>
-      <p>{{message.name}}</p>
-      <p>{{message.message}}</p>
-      <p>{{message.status}}</p>
     </div>
   </div>
+  <div *ngIf="!loading && selectedMessages.length === 0" class="no-items">There are no messages..</div>
 </div>
 </div>
 

@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { Message } from "./messages.model";
+import { Message, MessageFilter } from "./messages.model";
 import { FirebaseService } from "../shared/firebase.service";
 
 @Component({
@@ -8,8 +8,11 @@ import { FirebaseService } from "../shared/firebase.service";
   styleUrls: ["./messages.component.scss"]
 })
 export class MessagesComponent implements OnInit {
-  messages: Message[] | [] = [];
   loading: boolean = true;
+  messages: Message[] | [] = [];
+  selectedMessages: Message[] = [];
+  filters: MessageFilter[] = ["received", "completed"];
+  selectedFilter: MessageFilter = "received";
 
   constructor(private firebaseService: FirebaseService) {}
 
@@ -19,6 +22,14 @@ export class MessagesComponent implements OnInit {
         this.messages = Object.values(data);
       }
       this.loading = false;
+      this.filterMessages("received");
     });
+  }
+
+  filterMessages(filter: MessageFilter) {
+    this.selectedMessages = this.messages.filter(
+      message => message.status === filter
+    );
+    this.selectedFilter = filter;
   }
 }
