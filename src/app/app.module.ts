@@ -8,6 +8,7 @@ import { OrdersComponent } from "./orders/orders.component";
 import { HeaderComponent } from "./header/header.component";
 import { AppRoutingModule } from "./app-routing.model";
 import { HttpClientModule } from "@angular/common/http";
+import { FormsModule } from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -16,7 +17,13 @@ import { HttpClientModule } from "@angular/common/http";
     OrdersComponent,
     HeaderComponent
   ],
-  imports: [BrowserModule, RouterModule, AppRoutingModule, HttpClientModule],
+  imports: [
+    BrowserModule,
+    RouterModule,
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })

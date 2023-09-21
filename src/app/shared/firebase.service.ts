@@ -12,7 +12,16 @@ export class FirebaseService {
 
   getData(data: "orders" | "messages"): Observable<any> {
     const url = `${this.databaseUrl}/${data}.json`;
-
     return this.http.get(url);
+  }
+
+  updateMessage(
+    messageId: string,
+    newStatus: string,
+    answer: string
+  ): Observable<any> {
+    const url = `${this.databaseUrl}/messages/${messageId}.json`;
+    const updateData = { status: newStatus, answer: answer };
+    return this.http.patch(url, updateData);
   }
 }
