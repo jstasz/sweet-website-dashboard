@@ -1,6 +1,7 @@
 import { Component } from "@angular/core";
 import { FirebaseService } from "../shared/firebase.service";
 import { Order, OrderFilter } from "./orders.model";
+import { switchMap } from "rxjs";
 
 @Component({
   selector: "app-orders",
@@ -19,7 +20,10 @@ export class OrdersComponent {
   ngOnInit() {
     this.firebaseService.getData("orders").subscribe(data => {
       if (data) {
-        this.orders = Object.values(data);
+        this.orders = Object.keys(data).map(key => ({
+          id: key,
+          ...data[key]
+        }));
       }
       this.loading = false;
       this.filterOrders("received");
@@ -29,5 +33,21 @@ export class OrdersComponent {
   filterOrders(filter: OrderFilter) {
     this.selectedOrders = this.orders.filter(order => order.status === filter);
     this.selectedFilter = filter;
+  }
+
+  onMarkButtonClick(orderId: string) {
+    const newStatus: "in progress" | "completed" =
+      this.selectedFilter === "received" ? "in progress" : "completed";
+
+    this.firebaseService
+      .updateOrder(orderId, newStatus)
+      .pipe(switchMap(() => this.firebaseService.getData("orders")))
+      .subscribe(data => {
+        this.orders = Object.keys(data).map(key => ({
+          id: key,
+          ...data[key]
+        }));
+        this.filterOrders(this.selectedFilter);
+      });
   }
 }

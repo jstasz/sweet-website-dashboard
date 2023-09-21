@@ -1,4 +1,5 @@
 export type Order = {
+  id: string;
   email: string;
   date: string;
   status: string;
