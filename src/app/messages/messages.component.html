@@ -1,27 +1,37 @@
 <div class="page-content">
-<div class="messages">
-  <div class="filters">
-    <a *ngFor="let filter of filters" class="filters__item" [ngClass]="{'filters__item--active': filter === selectedFilter}" (click)="filterMessages(filter)"> {{ filter }}</a>
-  </div>
-  <div *ngIf="loading" class="loading-box">
-    <div class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
-  </div>
-  <div *ngIf="!loading && selectedMessages.length > 0">
-    <div *ngFor="let message of selectedMessages">
-      <div class="card-item" [ngClass]="'card-item ' + 'card-item--' + message.status">
-        <p>{{message.name}}</p>
-        <p class="card-item__email">{{message.email}}</p>
-        <p class="card-item__message">{{message.message}}</p>
-        <p class="card-item__answer--title" *ngIf="selectedFilter === 'completed'"> your answer: {{message.answer}}</p>
-        <!-- <p class="card-item__answer" *ngIf="selectedFilter === 'completed'">{{message.answer}}</p>
-         -->
-        <p class="card-item__answer" *ngIf="selectedFilter === 'completed'">answer for Maja</p>
-        <button class="card-item__btn" *ngIf="selectedFilter === 'received'">mark as completed</button>
+  <div class="messages">
+    <div class="filters">
+      <a *ngFor="let filter of filters" class="filters__item" [ngClass]="{'filters__item--active': filter === selectedFilter}" (click)="filterMessages(filter)"> {{ filter }}</a>
+    </div>
+    <div *ngIf="loading" class="loading-box">
+      <div class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+    </div>
+    <div *ngIf="!loading && selectedMessages.length > 0">
+      <div *ngFor="let message of selectedMessages">
+        <div class="card-item" [ngClass]="'card-item ' + 'card-item--' + message.status">
+          <p>{{message.name}}</p>
+          <p class="card-item__email">{{message.email}}</p>
+          <p class="card-item__message">{{message.message}}</p>
+          <p class="card-item__answer--title" *ngIf="selectedFilter === 'completed'"> your answer: {{message.answer}}</p>
+          <!-- <p class="card-item__answer" *ngIf="selectedFilter === 'completed'">{{message.answer}}</p>
+           -->
+          <p class="card-item__answer" *ngIf="selectedFilter === 'completed'">answer for Maja</p>
+          <button class="card-item__btn" *ngIf="selectedFilter === 'received'" (click)="activateModal()">mark as completed</button>
+        </div>
       </div>
     </div>
+    <div *ngIf="!loading && selectedMessages.length === 0" class="no-items">There are no messages..</div>
   </div>
-  <div *ngIf="!loading && selectedMessages.length === 0" class="no-items">There are no messages..</div>
 </div>
+<div class="modal" *ngIf="modalIsActive">
+  <div class="modal__bg" (click)="activateModal()"></div>
+  <div class="modal__content">
+    <textarea class="modal__content-answer" placeholder="Your answer..."></textarea>
+    <div class="modal__content-actions">
+      <button class="modal__content-btn" (click)="activateModal()">save</button>
+      <button class="modal__content-btn modal__content-btn--close" (click)="activateModal()">close</button>
+    </div>
+  </div>
 </div>
 
 

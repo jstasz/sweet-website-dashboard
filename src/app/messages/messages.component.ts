@@ -13,6 +13,7 @@ export class MessagesComponent implements OnInit {
   selectedMessages: Message[] = [];
   filters: MessageFilter[] = ["received", "completed"];
   selectedFilter: MessageFilter = "received";
+  modalIsActive: boolean = false;
 
   constructor(private firebaseService: FirebaseService) {}
 
@@ -31,5 +32,9 @@ export class MessagesComponent implements OnInit {
       message => message.status === filter
     );
     this.selectedFilter = filter;
+  }
+
+  activateModal() {
+    this.modalIsActive = !this.modalIsActive;
   }
 }
