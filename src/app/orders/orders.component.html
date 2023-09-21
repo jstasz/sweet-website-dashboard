@@ -8,14 +8,15 @@
     </div>
     <div *ngIf="!loading && selectedOrders.length > 0">
       <div *ngFor="let order of selectedOrders">
-        <div [ngClass]="'card-item ' + 'card-item--' + order.status">
-          <p>{{order.email}}</p>
-          <!-- <p>{{order.status}}</p> -->
+        <div [ngClass]="'card-item ' + 'card-item--' + order.status.replace(' ', '-')">
+          <p class="card-item__email">{{order.email}}</p>
           <p>{{order.date}}</p>
-          <!-- <div *ngFor="let el of order.order">
-            {{el.quantity}} x {{el.name}}
-            {{el.price}}
-          </div> -->
+          <div class="card-item__order">
+            <div *ngFor="let el of order.order">
+              {{el.quantity}} x {{el.name}}
+            </div>
+          </div>
+        <button class="card-item__btn" *ngIf="selectedFilter !== 'completed'">mark as {{ selectedFilter === 'received' ? 'in progress' : 'completed'}}</button>
         </div>
       </div>
     </div>

@@ -24,4 +24,10 @@ export class FirebaseService {
     const updateData = { status: newStatus, answer: answer };
     return this.http.patch(url, updateData);
   }
+
+  updateOrder(orderId: string, newStatus: string): Observable<any> {
+    const url = `${this.databaseUrl}/orders/${orderId}.json`;
+    const updateData = { status: newStatus };
+    return this.http.patch(url, updateData);
+  }
 }
